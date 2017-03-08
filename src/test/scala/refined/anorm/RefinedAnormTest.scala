@@ -14,7 +14,7 @@ import org.scalacheck.Gen.choose
 import refined.anorm._
 
 /**
-  * Tests for ]]
+  * Tests for refined-anorm
   */
 
 class RefinedAnormTest extends BaseTest {
