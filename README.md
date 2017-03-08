@@ -46,19 +46,23 @@ object Vlan {
 
 There is a complete, working example in the integration tests (in `src/it`).
 
+
+
 # Testing the app
 
 To run unit tests, run
 
     sbt test
-    
 To run the integration tests:
- 1) Install a database (PostgreSQL is the default).
- 2) Edit `src/it/resources/application.conf`.
-    * Edit the `username` and `password` fields.
-    * Create a database named `refinement`. Grant `username` read/write and create table access to it.
-    * Adjust database URL if necessary
- 3) Run `sbt it:test`
+
+1.  Install a database (PostgreSQL is the default).
+2. Create a database named `refinement`. Grant a user read/write and `create table` access to it.
+3. Edit `src/it/resources/application.conf`:
+   1. Edit the `username` and `password` fields
+   2. Adjust the database URL if necessary.
+4. Run `sbt it:test`
+
+
 
 # Code coverage report
 
