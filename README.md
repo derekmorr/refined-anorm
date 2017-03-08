@@ -17,22 +17,15 @@ For example:
 
 ```scala
 /** 802.1Q Vlan ID */
-type VlanIdRange = Interval.Closed[W.`0`.T, W.`4095`.T]
-type VlanId = Int Refined VlanIdRange
+type VlanId = Int Refined Interval.Closed[W.`0`.T, W.`4095`.T]
 
-/** Non-blank string */
-type NonBlank = And[NonEmpty, Exists[Not[Whitespace]]]
-type NonBlankString = String Refined NonBlank
+type NonBlankString = String Refined And[NonEmpty, Exists[Not[Whitespace]]]
 
 case class Vlan(id: VlanId, name: NonBlankString)
 
 object Vlan {
-  val parser: RowParser[Vlan] = {
-    get[VlanId]("id") ~
-    get[NonBlankString]("name") map {
-      case id ~ name => Vlan(id, name)
-    }
-  }
+   import refined.anorm._
+   val parser: RowParser[Vlan] = Macro.namedParser[Vlan]
   
   def getById(id: VlanId)(implicit connection: Connection): Option[Vlan] = {
     SQL"""SELECT id, name FROM vlans WHERE id = $id""".as(Vlan.parser.singleOpt)

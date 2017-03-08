@@ -4,7 +4,7 @@ import java.sql.Connection
 
 import anorm._
 import anorm.SqlParser._
-import refined.anorm._
+
 import refined.anorm.types.Types.{NonBlankString, VlanId}
 
 /**
@@ -13,12 +13,16 @@ import refined.anorm.types.Types.{NonBlankString, VlanId}
 case class Vlan(id: VlanId, name: NonBlankString)
 
 object Vlan {
-  val parser: RowParser[Vlan] = {
-    get[VlanId]("id") ~
-      get[NonBlankString]("name") map {
-      case id ~ name => Vlan(id, name)
-    }
-  }
+  import refined.anorm._
+  val parser: RowParser[Vlan] = Macro.namedParser[Vlan]
+
+  // or, if you prefer the old, manual way, you can define parse like this:
+  //  val parser: RowParser[Vlan] = {
+  //    get[VlanId]("id") ~
+  //    get[NonBlankString]("name") map {
+  //      case id ~ name => Vlan(id, name)
+  //    }
+  //  }
 
   /**
     * Retrieve a Vlan record by its id.

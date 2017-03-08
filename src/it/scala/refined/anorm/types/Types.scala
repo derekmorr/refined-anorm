@@ -13,10 +13,9 @@ import eu.timepit.refined.numeric.Interval
 object Types {
 
   /** 802.1Q Vlan ID */
-  type VlanIdRange = Interval.Closed[W.`0`.T, W.`4095`.T]
-  type VlanId = Int Refined VlanIdRange
+  type VlanId = Int Refined Interval.Closed[W.`0`.T, W.`4095`.T]
 
   /** Non-blank string */
-  type NonBlank = And[NonEmpty, Exists[Not[Whitespace]]]
-  type NonBlankString = String Refined NonBlank
+  type NonBlankString = String Refined And[NonEmpty, Exists[Not[Whitespace]]]
+
 }
