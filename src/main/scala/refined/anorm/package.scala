@@ -4,7 +4,7 @@ import java.sql.PreparedStatement
 
 import scala.language.higherKinds
 
-import _root_.anorm.{Column, ParameterMetaData, ToStatement, TypeDoesNotMatch}
+import _root_.anorm.{Column, ParameterMetaData, SqlRequestError, ToStatement, TypeDoesNotMatch}
 import eu.timepit.refined.api.{RefType, Validate}
 
 /**
@@ -28,12 +28,15 @@ package object anorm {
                                               baseColumnTo: Column[T]): Column[F[T, P]] = {
 
     Column.nonNull { (value, meta) =>
-      baseColumnTo(value, meta).toEither.flatMap { value =>
-        val className = value.asInstanceOf[AnyRef].getClass.toString
-        refType.refine[P](value) match {
-          case Left(errMsg) => Left(TypeDoesNotMatch(
-            s"Value $value of type $className for column ${meta.column.qualified} does not satisfy refinement predicate: $errMsg"))
-          case Right(r) => Right(r)
+      baseColumnTo(value, meta).toEither match {
+        case Left(err) => Left(err)
+        case Right(value) => {
+          val className = value.asInstanceOf[AnyRef].getClass.toString
+          refType.refine[P](value) match {
+            case Left(errMsg) => Left(TypeDoesNotMatch(
+              s"Value $value of type $className for column ${meta.column.qualified} does not satisfy refinement predicate: $errMsg"))
+            case Right(r) => Right(r)
+          }
         }
       }
     }
