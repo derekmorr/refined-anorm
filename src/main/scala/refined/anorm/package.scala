@@ -30,13 +30,12 @@ package object anorm {
     Column.nonNull { (value, meta) =>
       baseColumnTo(value, meta).toEither match {
         case Left(err) => Left(err)
-        case Right(value) => {
-          val className = value.asInstanceOf[AnyRef].getClass.toString
-          refType.refine[P](value) match {
-            case Left(errMsg) => Left(TypeDoesNotMatch(
+        case Right(value) => refType.refine[P](value) match {
+          case Left(errMsg) => 
+            val className = value.asInstanceOf[AnyRef].getClass.toString
+            Left(TypeDoesNotMatch(
               s"Value $value of type $className for column ${meta.column.qualified} does not satisfy refinement predicate: $errMsg"))
-            case Right(r) => Right(r)
-          }
+          case Right(r) => Right(r)
         }
       }
     }
