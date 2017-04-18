@@ -3,6 +3,8 @@
 Adds support for [Refinement types](https://github.com/fthomas/refined) to the 
 [Anorm](https://github.com/playframework/anorm) database access layer for Scala.
 
+[![Build Status](https://travis-ci.org/derekmorr/refined-anorm.svg?branch=master)](https://travis-ci.org/derekmorr/refined-anorm)
+
 # Usage
 
 Add the following to Anorm models:
