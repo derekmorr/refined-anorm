@@ -1,5 +1,7 @@
 name := "refined-anorm"
 
+organization := "com.github.derekmorr"
+
 version := "0.1"
 
 lazy val commonSettings = Seq(
@@ -18,7 +20,7 @@ libraryDependencies ++= {
     "eu.timepit"          %% "refined"        % "0.8.0"       % Compile,
 
     "org.eu.acolyte"      %% "jdbc-scala"     % "1.0.43-j7p"  % Test,
-    "org.scalacheck"      %% "scalacheck"     % "1.13.4"      % "it,test",
+    "org.scalacheck"      %% "scalacheck"     % "1.13.5"      % "it,test",
     "org.scalatest"       %% "scalatest"      % "3.0.1"       % "it,test",
     "org.pegdown"         %  "pegdown"        % "1.6.0"       % "it,test",
 
@@ -49,4 +51,28 @@ parallelExecution in Test := true
 // cache dependency resolution information
 updateOptions := updateOptions.value.withCachedResolution(true)
 
-scapegoatVersion := "1.3.0"
+publishMavenStyle := false
+
+publishArtifact in Test := false
+
+publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
+
+pomExtra :=
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <url>git@github.com:derekmorr/refined-anorm.git</url>
+    <connection>scm:git:git@github.com:derekmorr/refined-anorm.git</connection>
+  </scm>
+    <developers>
+      <developer>
+        <id>derekmorr</id>
+        <name>Derek Morr</name>
+        <url>https://github.com/derekmorr</url>
+      </developer>
+    </developers>
