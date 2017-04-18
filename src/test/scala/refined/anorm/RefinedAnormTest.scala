@@ -11,7 +11,6 @@ import eu.timepit.refined._
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric._
 import org.scalacheck.Gen.choose
-import refined.anorm._
 
 /**
   * Tests for refined-anorm

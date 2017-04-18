@@ -4,7 +4,7 @@ import java.sql.PreparedStatement
 
 import scala.language.higherKinds
 
-import _root_.anorm.{Column, ParameterMetaData, SqlRequestError, ToStatement, TypeDoesNotMatch}
+import _root_.anorm.{Column, ParameterMetaData, ToStatement, TypeDoesNotMatch}
 import eu.timepit.refined.api.{RefType, Validate}
 
 /**

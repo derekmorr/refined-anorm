@@ -3,8 +3,6 @@ package refined.anorm.models
 import java.sql.Connection
 
 import anorm._
-import anorm.SqlParser._
-
 import refined.anorm.types.Types.{NonBlankString, VlanId}
 
 /**

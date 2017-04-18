@@ -5,7 +5,6 @@ import java.sql.Connection
 import com.typesafe.config.ConfigFactory
 import eu.timepit.refined.auto._
 import refined.anorm.models.Vlan
-import refined.anorm.types.Types.VlanId
 
 /**
   * Integration tests for refined-anorm
