@@ -56,7 +56,6 @@ class RefinedAnormTest extends BaseTest {
             withQueryResult(stringList :+ "hello") { implicit con =>
               val ex = the[AnormException] thrownBy SQL("SELECT vlanId").as(scalar[VlanId].single)
               ex.getMessage must include("TypeDoesNotMatch")
-              println(ex.getMessage())
             }
           }
         }
