@@ -24,9 +24,12 @@ libraryDependencies ++= {
     "org.scalatest"       %% "scalatest"      % "3.0.1"       % "it,test",
     "org.pegdown"         %  "pegdown"        % "1.6.0"       % "it,test",
 
-    "com.typesafe"        %  "config"         % "1.3.1"       % "it",
-    "com.zaxxer"          %  "HikariCP"       % "2.4.1"       % "it",
-    "org.postgresql"      %  "postgresql"     % "42.0.0"      % "it"
+    // technically these dependencies are only needed in "it" scope, but publishLocal
+    // will put them in compile scope unless they're tagged as "it,test"
+    // see https://github.com/sbt/sbt/issues/1380
+    "com.typesafe"        %  "config"         % "1.3.1"       % "it,test",
+    "com.zaxxer"          %  "HikariCP"       % "2.4.1"       % "it,test",
+    "org.postgresql"      %  "postgresql"     % "42.0.0"      % "it,test"
   )
 }
 
@@ -51,9 +54,10 @@ parallelExecution in Test := true
 // cache dependency resolution information
 updateOptions := updateOptions.value.withCachedResolution(true)
 
-publishMavenStyle := false
+publishMavenStyle := true
 
 publishArtifact in Test := false
+publishArtifact in "it" := false
 
 publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
 
