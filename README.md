@@ -5,6 +5,16 @@ Adds support for [Refinement types](https://github.com/fthomas/refined) to the
 
 [![Build Status](https://travis-ci.org/derekmorr/refined-anorm.svg?branch=master)](https://travis-ci.org/derekmorr/refined-anorm)
 
+# Installation #
+
+Add the following to your `build.sbt`:
+
+``` scala
+libraryDependencies += "com.github.derekmorr" %% "refined-anorm" % "0.1"
+```
+
+`refined-anorm` is available for Scala 2.11 and 2.12 for Anorm 2.5.
+
 # Usage
 
 Add the following to Anorm models:
@@ -51,11 +61,11 @@ To run unit tests, run
 To run the integration tests:
 
 1.  Install a database (PostgreSQL is the default).
-2. Create a database named `refinement`. Grant a user read/write and `create table` access to it.
-3. Edit `src/it/resources/application.conf`:
+2.  Create a database named `refinement`. Grant a user read/write and `create table` access to it.
+3.  Edit `src/it/resources/application.conf`:
    1. Edit the `username` and `password` fields
    2. Adjust the database URL if necessary.
-4. Run `sbt it:test`
+4.  Run `sbt it:test`
 
 
 
