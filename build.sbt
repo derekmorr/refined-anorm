@@ -57,26 +57,34 @@ updateOptions := updateOptions.value.withCachedResolution(true)
 publishMavenStyle := true
 
 publishArtifact in Test := false
-publishArtifact in "it" := false
 
-publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
+publishTo := {
+  val nexus = "https://oss.sonatype.org/"
+  if (isSnapshot.value)
+    Some("snapshots" at nexus + "content/repositories/snapshots")
+  else
+    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+}
 
-pomExtra :=
-  <licenses>
-    <license>
-      <name>MIT License</name>
-      <url>http://www.opensource.org/licenses/mit-license.php</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  <scm>
-    <url>git@github.com:derekmorr/refined-anorm.git</url>
-    <connection>scm:git:git@github.com:derekmorr/refined-anorm.git</connection>
-  </scm>
-    <developers>
-      <developer>
-        <id>derekmorr</id>
-        <name>Derek Morr</name>
-        <url>https://github.com/derekmorr</url>
-      </developer>
-    </developers>
+pomIncludeRepository := { _ => false }
+
+licenses := Seq("MIT License" -> url("http://www.opensource.org/licenses/mit-license.php"))
+
+homepage := Some(url("https://github.com/derekmorr/refined-anorm/"))
+
+scmInfo := Some(
+  ScmInfo(
+    url("http://github.com/derekmorr/refined-anorm/tree/master"),
+    "scm:git@github.com:derekmorr/refined-anorm.git"
+  )
+)
+
+developers := List(
+  Developer(
+    id    = "derekmorr",
+    name  = "Derek Morr",
+    email = "morr.derek@gmail.com",
+    url   = url("https://github.com/derekmorr")
+  )
+)
+
