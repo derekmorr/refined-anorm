@@ -17,7 +17,7 @@ lazy val root = (project in file(".")).
 libraryDependencies ++= {
   Seq(
     "com.typesafe.play"   %% "anorm"          % "2.5.3"       % Compile,
-    "eu.timepit"          %% "refined"        % "0.8.0"       % Compile,
+    "eu.timepit"          %% "refined"        % "0.8.4"       % Compile,
 
     "org.eu.acolyte"      %% "jdbc-scala"     % "1.0.43-j7p"  % Test,
     "org.scalacheck"      %% "scalacheck"     % "1.13.5"      % "it,test",
